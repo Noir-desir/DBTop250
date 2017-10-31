@@ -20,12 +20,16 @@ def parse_page(content):
                      '.*?alt="(.*?)"'+
                      '.*?rating_num.*?average">(.*?)</span>',re.S)
     results = re.findall(pattern, content)
-    for result in results:
-        return result.__str__()
+    result_list = []
+    for i in results:
+        n=' '.join(i)
+        result_list.append(n)
+    result = '\n'.join(result_list)
+    return result
 
 def write_to(result):
-    with open('filename.txt', 'w') as fw:
-        fw.write(result)
+    with open('filename.txt', 'a') as fw:
+        fw.write(result+'\n')
         fw.close
   
 def main(page):
@@ -35,6 +39,7 @@ def main(page):
 
     
 if __name__ == '__main__':
-    main(i*25 for i in range(10))
+    for i in range(10):
+        main(i*25)
 
 print('finished!')
